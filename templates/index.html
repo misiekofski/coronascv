@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Szczepionki w polsce</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+</head>
+<style>
+
+.box {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  width: 800px;
+}
+</style>
+<body>
+
+<div class="box">
+    <canvas id="line-chart" width="800" height="450"></canvas>
+</div>
+
+<script>
+new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+    labels: ['2021-01','2021-02','2021-03','2021-04', '2021-05', '2021-06', '2021-07', '2021-08', '2021-09', '2021-10', '2021-11', '2021-12'],
+    datasets: [{
+        data: [50,51,64,79,215,220,450,512,945,1854,2153,2409,3189],
+        label: "Szczepienia w Polsce",
+        borderColor: "#3e95cd",
+        fill: false
+      },
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Oś y (w tysiącach)'
+    }
+  }
+});
+
+</script>
+
+</body>
+</html>
