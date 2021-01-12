@@ -3,44 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <title>Szczepionki w polsce</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 </head>
 <body>
-
 <div class="container">
+
+    <header>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <ul class="list-group">
+                    <li class="list-group-item">Zaszczepić trzeba 70% społeczeństwa</li>
+                    <li class="list-group-item">Każdy szczepiony przyjmuje dwie dawki</li>
+                    <li class="list-group-item">W Polsce mieszka 38 milionów ludzi do zaszczepienia</li>
+                    <li class="list-group-item">Model bierze pod uwagę tylko dane historyczne</li>
+                    </li>
+                </ul>
+            </div>
+            <div class="col"></div>
+        </div>
+    </header>
+
+    <br/>
+
     <div class="row">
         <div class="col"></div>
-        <div class="col-8"><canvas id="line-chart" width="800" height="450"></canvas></div>
+        <div class="col-12">
+            <canvas id="line-chart"></canvas>
+        </div>
         <div class="col"></div>
     </div>
+
+    <br/>
+
+    <footer class="text-center">
+        &copy; 2021 - <a href="https://scvconsultants.com/">SCV Consultants</a>; github <a href="https://github.com/misiekofski/coronascv">repo</a>
+    </footer>
+
 </div>
-
-<footer class="text-center">
-    &copy; 2021 - <a href="https://scvconsultants.com/">SCV Consultants</a>
-</footer>
-
-
 <script>
-new Chart(document.getElementById("line-chart"), {
-  type: 'line',
-  data: {
-    labels: {{ labels|safe }},
-    datasets: [{
-        data: {{ values }},
-        label: "Szczepienia w Polsce",
-        borderColor: "#3e95cd",
-        fill: false
-      },
-    ]
-  },
-  options: {
-    title: {
-      display: true,
-      text: 'Oś y (w tysiącach)'
-    }
-  }
-});
+    new Chart(document.getElementById("line-chart"), {
+        type: 'line',
+        data: {
+            labels: {{ labels|safe }},
+            datasets: [
+                {
+                    data: {{ values }},
+                    label: "Szczepienia w Polsce (w tyś)",
+                    borderColor: "#3e95cd",
+                    fill: false,
+                    showLine: false
+                },
+                {
+                    data: [],
+                    label: "Model predykcyjny (TBD)",
+                    borderColor: "#53cd3e",
+                    fill: false,
+                }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Model predykcyjny zaszczepienia 70% populacji Polski'
+            }
+        }
+    });
 
 </script>
 </body>
