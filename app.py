@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 def corona_plot():
     dataset = pd.read_csv('data.csv')
-    labels = [str(x) for x in dataset['date']]
+    labels = [x for x in dataset['date']]
     values = [x for x in dataset['vaccine_number']]
     return render_template('index.html', labels=labels, values=values)
 
