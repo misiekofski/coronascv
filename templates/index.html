@@ -47,8 +47,13 @@
 </div>
 <script>
     myData = {{values}}.map((v, i) => [i,v]);
-    const my_regression = regression.linear(myData);
-    const reg_values = my_regression.points.map(([x,y]) => {
+    const linearRegression = regression.linear(myData);
+    const linearRegressionValues = linearRegression.points.map(([x,y]) => {
+        return y;
+    });
+
+    const polynomialRegression = regression.polynomial(myData, { order: 3 });
+    const polynomialRegressionValues = polynomialRegression.points.map(([x,y]) => {
         return y;
     });
 
@@ -65,9 +70,15 @@
                     showLine: false
                 },
                 {
-                    data: reg_values,
+                    data: linearRegressionValues,
                     label: "Regresja liniowa",
                     borderColor: "#53cd3e",
+                    fill: false,
+                },
+                                {
+                    data: polynomialRegressionValues,
+                    label: "Aproksymacja wielomianowa",
+                    borderColor: "#cd3eae",
                     fill: false,
                 }
             ]
