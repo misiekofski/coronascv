@@ -39,6 +39,26 @@
 
     <br/>
 
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-12">
+            <p>Regresja liniowa: ilość osób zaszczepionych w ciągu 100 dni od rozpoczęcia szczepień (w mln):
+                <span class="btn btn-info" id="linear"></span></p>
+            <p>Funkcja <span id="linearFuncEq"></span></p>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-12">
+            <p>Regresja wielomianowa (3 stopień): ilość osób zaszczepionych w ciągu 100 dni od rozpoczęcia szczepień (w mln):
+                <span class="btn btn-info" id="polynomial3rd"></span></p>
+            <p>Funkcja <span id="polynomialFuncEq"></span></p>
+        </div>
+        <div class="col"></div>
+    </div>
+
     <footer class="text-center">
         &copy; 2021 - <a href="https://scvconsultants.com/">SCV Consultants</a>; github <a
             href="https://github.com/misiekofski/coronascv">repo</a>
@@ -46,16 +66,22 @@
 
 </div>
 <script>
-    myData = {{values}}.map((v, i) => [i,v]);
+    myData =
+    {{values}}.map((v, i) => [i, v]);
     const linearRegression = regression.linear(myData);
-    const linearRegressionValues = linearRegression.points.map(([x,y]) => {
+    const linearRegressionValues = linearRegression.points.map(([x, y]) => {
         return y;
     });
 
-    const polynomialRegression = regression.polynomial(myData, { order: 3 });
-    const polynomialRegressionValues = polynomialRegression.points.map(([x,y]) => {
+    const polynomialRegression = regression.polynomial(myData, {order: 3});
+    const polynomialRegressionValues = polynomialRegression.points.map(([x, y]) => {
         return y;
     });
+
+    document.getElementById("linear").innerText = (linearRegression.predict(100)[1]/2000).toFixed(2);
+    document.getElementById("polynomial3rd").innerText = (polynomialRegression.predict(100)[1]/2000).toFixed(2);
+    document.getElementById("linearFuncEq").innerText = linearRegression.string;
+    document.getElementById("polynomialFuncEq").innerText = polynomialRegression.string;
 
     new Chart(document.getElementById("line-chart"), {
         type: 'line',
@@ -75,7 +101,7 @@
                     borderColor: "#53cd3e",
                     fill: false,
                 },
-                                {
+                {
                     data: polynomialRegressionValues,
                     label: "Aproksymacja wielomianowa",
                     borderColor: "#cd3eae",
