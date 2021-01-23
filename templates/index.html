@@ -10,22 +10,48 @@
 </head>
 <body>
 <div class="container">
-
-    <header>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col-6">
-                <ul class="list-group">
-                    <li class="list-group-item">Zaszczepić trzeba 70% społeczeństwa</li>
-                    <li class="list-group-item">Każdy szczepiony przyjmuje dwie dawki</li>
-                    <li class="list-group-item">W Polsce mieszka 38 milionów ludzi do zaszczepienia</li>
-                    <li class="list-group-item">Model bierze pod uwagę tylko dane historyczne</li>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <a class="navbar-brand" href="#">Ostatnie:</a>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success me-2" type="button" href="?ld=7">7 dni</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success me-2" type="button" href="?ld=14">14 dni</a>
+                    </li>
+{#                    <li class="nav-item">#}
+{#                        <a class="btn btn-outline-success me-2" type="button" href="?ld=28">28 dni</a>#}
+{#                    </li>#}
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success me-2" type="button" href=".">wszystkie dni</a>
                     </li>
                 </ul>
+                <form class="d-flex">
+                    <span class="navbar-text">Od rozpoczęcia szczepień upłynęło: <span id="daysFromStart"></span> dni</span>
+
+                </form>
             </div>
-            <div class="col"></div>
         </div>
-    </header>
+    </nav>
+
+    <div class="row">
+        <div class="col">Wytyczne:</div>
+        <div class="col-12">
+            <ul class="list-group">
+                <li class="list-group-item">W Polsce mieszka 38 milionów ludzi do zaszczepienia</li>
+                <li class="list-group-item">Zaszczepić trzeba 70% społeczeństwa - tj. ok 27 mln osób</li>
+                <li class="list-group-item">Każdy szczepiony przyjmuje dwie dawki</li>
+                <li class="list-group-item">Model bazuje na danych historycznych</li>
+                <li class="list-group-item">Zakładam, że nie będzie problemów z dostępnością szczepionek i
+                    szczepiących
+                </li>
+                </li>
+            </ul>
+        </div>
+        <div class="col"></div>
+    </div>
 
     <br/>
 
@@ -34,7 +60,8 @@
         <div class="col-12">
             <canvas id="line-chart"></canvas>
         </div>
-        <div class="col"></div>
+        <div class="col">
+        </div>
     </div>
 
     <br/>
@@ -75,16 +102,10 @@
         return y;
     });
 
-    const polynomialRegression = regression.polynomial(myData, {order: 3});
-    const polynomialRegressionValues = polynomialRegression.points.map(([x, y]) => {
-        return y;
-    });
-
-    document.getElementById("linear100").innerText = (linearRegression.predict(100)[1] / 2000).toFixed(2);
-    document.getElementById("linear180").innerText = (linearRegression.predict(180)[1] / 2000).toFixed(2);
-    {#document.getElementById("polynomial3rd").innerText = (polynomialRegression.predict(100)[1]/2000).toFixed(2);#}
+    document.getElementById("daysFromStart").innerText = "{{days_from_start}}";
+    document.getElementById("linear100").innerText = (linearRegression.predict(100-{{ add_days }})[1] / 2000).toFixed(2);
+    document.getElementById("linear180").innerText = (linearRegression.predict(180-{{ add_days }})[1] / 2000).toFixed(2);
     document.getElementById("linearFuncEq").innerText = linearRegression.string;
-    {#document.getElementById("polynomialFuncEq").innerText = polynomialRegression.string;#}
 
     new Chart(document.getElementById("line-chart"), {
         type: 'line',
@@ -93,7 +114,7 @@
             datasets: [
                 {
                     data: {{ values }},
-                    label: "Szczepienia w Polsce (w tyś)",
+                    label: "Szczepionki podane w Polsce (w tyś)",
                     borderColor: "#3e95cd",
                     fill: false,
                     showLine: false
