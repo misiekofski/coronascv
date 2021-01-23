@@ -43,21 +43,23 @@
         <div class="col"></div>
         <div class="col-12">
             <p>Regresja liniowa: ilość osób zaszczepionych w ciągu 100 dni od rozpoczęcia szczepień (w mln):
-                <span class="btn btn-info" id="linear"></span></p>
+                <span class="btn btn-info" id="linear100"></span></p>
+            <p>Regresja liniowa: ilość osób zaszczepionych w ciągu 180 dni od rozpoczęcia szczepień (w mln):
+                <span class="btn btn-info" id="linear180"></span></p>
             <p>Funkcja <span id="linearFuncEq"></span></p>
         </div>
         <div class="col"></div>
     </div>
 
-    <div class="row">
-        <div class="col"></div>
-        <div class="col-12">
-            <p>Regresja wielomianowa (3 stopień): ilość osób zaszczepionych w ciągu 100 dni od rozpoczęcia szczepień (w mln):
-                <span class="btn btn-info" id="polynomial3rd"></span></p>
-            <p>Funkcja <span id="polynomialFuncEq"></span></p>
-        </div>
-        <div class="col"></div>
-    </div>
+    {#    <div class="row">#}
+    {#        <div class="col"></div>#}
+    {#        <div class="col-12">#}
+    {#            <p>Regresja wielomianowa (3 stopień): ilość osób zaszczepionych w ciągu 100 dni od rozpoczęcia szczepień (w mln):#}
+    {#                <span class="btn btn-info" id="polynomial3rd"></span></p>#}
+    {#            <p>Funkcja <span id="polynomialFuncEq"></span></p>#}
+    {#        </div>#}
+    {#        <div class="col"></div>#}
+    {#    </div>#}
 
     <footer class="text-center">
         &copy; 2021 - <a href="https://scvconsultants.com/">SCV Consultants</a>; github <a
@@ -78,10 +80,11 @@
         return y;
     });
 
-    document.getElementById("linear").innerText = (linearRegression.predict(100)[1]/2000).toFixed(2);
-    document.getElementById("polynomial3rd").innerText = (polynomialRegression.predict(100)[1]/2000).toFixed(2);
+    document.getElementById("linear100").innerText = (linearRegression.predict(100)[1] / 2000).toFixed(2);
+    document.getElementById("linear180").innerText = (linearRegression.predict(180)[1] / 2000).toFixed(2);
+    {#document.getElementById("polynomial3rd").innerText = (polynomialRegression.predict(100)[1]/2000).toFixed(2);#}
     document.getElementById("linearFuncEq").innerText = linearRegression.string;
-    document.getElementById("polynomialFuncEq").innerText = polynomialRegression.string;
+    {#document.getElementById("polynomialFuncEq").innerText = polynomialRegression.string;#}
 
     new Chart(document.getElementById("line-chart"), {
         type: 'line',
@@ -99,12 +102,6 @@
                     data: linearRegressionValues,
                     label: "Regresja liniowa",
                     borderColor: "#53cd3e",
-                    fill: false,
-                },
-                {
-                    data: polynomialRegressionValues,
-                    label: "Aproksymacja wielomianowa",
-                    borderColor: "#cd3eae",
                     fill: false,
                 }
             ]
