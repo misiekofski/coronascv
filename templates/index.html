@@ -16,11 +16,14 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <a class="navbar-brand" href="#">Ostatnie:</a>
                     <li class="nav-item">
-                        <a class="btn btn-outline-success me-2" type="button" href="?ld=14">14 dni</a>
+                        <a class="btn btn-outline-success me-2" type="button" href="?ld=7">7 dni</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-success me-2" type="button" href="?ld=28">28 dni</a>
+                        <a class="btn btn-outline-success me-2" type="button" href="?ld=14">14 dni</a>
                     </li>
+{#                    <li class="nav-item">#}
+{#                        <a class="btn btn-outline-success me-2" type="button" href="?ld=28">28 dni</a>#}
+{#                    </li>#}
                     <li class="nav-item">
                         <a class="btn btn-outline-success me-2" type="button" href=".">wszystkie dni</a>
                     </li>
@@ -100,8 +103,8 @@
     });
 
     document.getElementById("daysFromStart").innerText = "{{days_from_start}}";
-    document.getElementById("linear100").innerText = (linearRegression.predict(100)[1] / 2000).toFixed(2);
-    document.getElementById("linear180").innerText = (linearRegression.predict(180)[1] / 2000).toFixed(2);
+    document.getElementById("linear100").innerText = (linearRegression.predict(100-{{ add_days }})[1] / 2000).toFixed(2);
+    document.getElementById("linear180").innerText = (linearRegression.predict(180-{{ add_days }})[1] / 2000).toFixed(2);
     document.getElementById("linearFuncEq").innerText = linearRegression.string;
 
     new Chart(document.getElementById("line-chart"), {
