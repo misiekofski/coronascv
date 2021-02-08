@@ -13,7 +13,7 @@ def corona_plot():
     days_from_start = (today - start_date).days
     days = int(request.args.get('ld', default=0))
     add_days = days_from_start - days
-    dataset = pd.read_csv('data.csv')
+    dataset = pd.read_csv('https://scvconsultants.com/data.csv')
     labels = [x for x in dataset['date']][-days:]
     values = [x for x in dataset['vaccine_number']][-days:]
     return render_template('index.html', labels=labels, values=values, days_from_start=days_from_start,
